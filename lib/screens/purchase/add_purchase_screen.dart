@@ -151,153 +151,174 @@ class _AddPurchaseScreenState extends State<AddPurchaseScreen> {
     final isEdit = widget.purchaseId != null;
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: SingleChildScrollView(
+      body: Expanded(
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          margin: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+
           child: Form(
             key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  isEdit ? 'Edit Purchase' : 'Add Purchase',
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    isEdit ? 'Edit Purchase' : 'Add Purchase',
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: _productIdController,
-                        decoration: const InputDecoration(
-                          labelText: 'Product ID',
-                        ),
-                        validator:
-                            (value) =>
-                                value!.isEmpty ? 'Enter product ID' : null,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: TextFormField(
-                        controller: _supplierIdController,
-                        decoration: const InputDecoration(
-                          labelText: 'Supplier ID',
-                        ),
-                        validator:
-                            (value) =>
-                                value!.isEmpty ? 'Enter supplier ID' : null,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: _billImageController,
-                        decoration: const InputDecoration(
-                          labelText: 'Bill Image URL',
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: _productIdController,
+                          decoration: const InputDecoration(
+                            labelText: 'Product ID',
+                          ),
+                          validator:
+                              (value) =>
+                                  value!.isEmpty ? 'Enter product ID' : null,
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: TextFormField(
-                        controller: _totalAmountController,
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          labelText: 'Total Amount',
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: TextFormField(
+                          controller: _supplierIdController,
+                          decoration: const InputDecoration(
+                            labelText: 'Supplier ID',
+                          ),
+                          validator:
+                              (value) =>
+                                  value!.isEmpty ? 'Enter supplier ID' : null,
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty)
-                            return 'Enter total amount';
-                          if (double.tryParse(value) == null)
-                            return 'Enter valid number';
-                          return null;
-                        },
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: _paidAmountController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(labelText: 'Paid Amount'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty)
-                      return 'Enter paid amount';
-                    if (double.tryParse(value) == null)
-                      return 'Enter valid number';
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                DropdownButtonFormField<String>(
-                  value: _paymentType,
-                  items:
-                      _paymentTypes.map((type) {
-                        return DropdownMenuItem(value: type, child: Text(type));
-                      }).toList(),
-                  onChanged: (value) => setState(() => _paymentType = value),
-                  decoration: const InputDecoration(labelText: 'Payment Type'),
-                  validator:
-                      (value) => value == null ? 'Select payment type' : null,
-                ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: _descriptionController,
-                  maxLines: 3,
-                  decoration: const InputDecoration(
-                    labelText: 'Description',
-                    alignLabelWithHint: true,
-                    border: OutlineInputBorder(),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 24),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: _isSubmitting ? null : addpurchase,
-                        icon:
-                            _isSubmitting
-                                ? const SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.white,
-                                    ),
-                                  ),
-                                )
-                                : Icon(isEdit ? Icons.edit : Icons.add),
-                        label: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: Text(
-                            isEdit ? 'Update Purchase' : 'Add Purchase',
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: _billImageController,
+                          decoration: const InputDecoration(
+                            labelText: 'Bill Image URL',
                           ),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppTheme.primaryBlue,
-                          foregroundColor: Colors.white,
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: TextFormField(
+                          controller: _totalAmountController,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                            labelText: 'Total Amount',
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty)
+                              return 'Enter total amount';
+                            if (double.tryParse(value) == null)
+                              return 'Enter valid number';
+                            return null;
+                          },
                         ),
                       ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _paidAmountController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'Paid Amount'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty)
+                        return 'Enter paid amount';
+                      if (double.tryParse(value) == null)
+                        return 'Enter valid number';
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  DropdownButtonFormField<String>(
+                    value: _paymentType,
+                    items:
+                        _paymentTypes.map((type) {
+                          return DropdownMenuItem(
+                            value: type,
+                            child: Text(type),
+                          );
+                        }).toList(),
+                    onChanged: (value) => setState(() => _paymentType = value),
+                    decoration: const InputDecoration(
+                      labelText: 'Payment Type',
                     ),
-                    const SizedBox(width: 16),
-                    OutlinedButton(
-                      onPressed: _isSubmitting ? null : _clearForm,
-                      child: const Text('Clear Form'),
+                    validator:
+                        (value) => value == null ? 'Select payment type' : null,
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _descriptionController,
+                    maxLines: 3,
+                    decoration: const InputDecoration(
+                      labelText: 'Description',
+                      alignLabelWithHint: true,
+                      border: OutlineInputBorder(),
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          onPressed: _isSubmitting ? null : addpurchase,
+                          icon:
+                              _isSubmitting
+                                  ? const SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white,
+                                      ),
+                                    ),
+                                  )
+                                  : Icon(isEdit ? Icons.edit : Icons.add),
+                          label: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: Text(
+                              isEdit ? 'Update Purchase' : 'Add Purchase',
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppTheme.primaryBlue,
+                            foregroundColor: Colors.white,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      OutlinedButton(
+                        onPressed: _isSubmitting ? null : _clearForm,
+                        child: const Text('Clear Form'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

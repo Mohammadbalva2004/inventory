@@ -182,7 +182,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                       _buildTextField(
                         _parentCategoryIdController,
                         'Parent Category ID',
-                        validator: (value) => null, // ✅ Optional field
+                        validator: (value) => null,
                       ),
                       const SizedBox(height: 24),
                       Row(

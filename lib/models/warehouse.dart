@@ -1,5 +1,3 @@
-// warehouse_model.dart
-
 class Warehouse {
   final String wareHouseId;
   final String locationOrArea;
